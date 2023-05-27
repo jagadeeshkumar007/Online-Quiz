@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Result</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+</head>
+<body>
+<div class="score">
+<h1>Result: </h1>
+<p th:text="${r}"></p>
+</div>
+<div class="board">
+<form action="leaderboard">
+<input type="submit" value="View Scoreboard">
+</form>
+</div>
+</body>
+<style>
+.score{
+position:absoulte;
+top:10%;
+left:45%;
+}
+.score h1{
+text-align:center;
+}
+.score p{
+text-align:center;
+}
+.board{
+position:relative;
+top:10%;
+left:45%;
+}
+</style>
+</html>

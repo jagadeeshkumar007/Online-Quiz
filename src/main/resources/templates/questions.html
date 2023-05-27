@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Questions</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+</head>
+<body>
+    <div class="center">
+        <h1>Enter Questions</h1>
+        <form action="addquestion" method="post">
+            <div class="txt_question">
+                <label for="" style="font-size: x-large;">Question no</label>
+                <input type="text" name="qno" hiddenvalue="questionno" required>
+            </div>
+            <div class="txt">
+                <label for="">Question</label>
+                <textarea name="question" id="Question" cols="30" rows="2" style="font-size: xx-large;"></textarea>
+            </div>
+            <div class="txt">
+                <label for="">option 1:</label>
+                <input type="text" name="op1" placeholder="option" hiddenvalue="option-1" required>
+            </div>
+            <div class="txt">
+                <label for="">option 2:</label>
+                <input type="text" name="op2" placeholder="option" hiddenvalue="option-2" required>
+            </div>
+            <div class="txt">
+                <label for="">option 3:</label>
+                <input type="text" name="op3" placeholder="option" hiddenvalue="option-3" required>
+            </div>
+            <div class="txt">
+                <label for="">option 4:</label>
+                <input type="text" name="op4" placeholder="option" hiddenvalue="option-4" required>
+            </div>
+            <div class="txt">
+                <label for="">Answer:</label>
+                <input type="text" name="ans" placeholder="Answer" hiddenvalue="Answer" required>
+            </div>
+            <input type="submit" value="submit">
+            
+        </form>
+    </div>
+</body>
+</html>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(120deg,white,skyblue);
+        height: 150vh;
+        overflow: auto;
+    }
+    .center{
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 500px;
+        background: whitesmoke;
+        border-radius: 10px;
+    }
+    .center h1{
+        text-align: center;
+        padding: 10px 10px 20px 5px;
+        border-bottom: 1px solid rgb(44, 182, 182);
+        background-color: skyblue;
+    }
+    .center form{
+        padding: 10px 40px 10px 17px;
+        box-sizing: border-box;
+    }
+    .txt_question input{
+        width:20%;
+        height: 30px;
+        font-size: x-large;
+    }
+    form .txt{
+        position: relative;
+        margin: 20px 0;
+    }
+    .txt input{
+        width: 40%;
+        height: 30px;
+        font-size: x-large;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+    .txt label{
+        top: 40%;
+        left: 40%;
+        font-size: x-large;
+        border: none;
+    }
+    input[type="submit"]{
+        width: 100%;
+        height: 40px;
+        font-size: x-large;
+        background: skyblue;
+    }
+</style>
