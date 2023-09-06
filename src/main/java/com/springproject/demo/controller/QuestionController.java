@@ -1,10 +1,11 @@
 package com.springproject.demo.controller;
+import java.time.*;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import com.springproject.demo.dao.QuizDetailsRepo;
+import com.springproject.demo.model.QuizDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,8 @@ public class QuestionController {
 	StudentloginRepo slrepo;
 	@Autowired
 	ResultRepo rrepo;
+	@Autowired
+	QuizDetailsRepo qdrepo;
 	private int sizeoflist;
 	@RequestMapping("/")
 	public String home()
@@ -172,6 +175,78 @@ public class QuestionController {
 		}
 		mv.addObject("res", re2);
 		return mv;
+	}
+	@RequestMapping("/quizdetails")
+	public ModelAndView quizdetails(HttpServletRequest request){
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("quizdetails");
+		return mv;
+	}
+	@RequestMapping("/quizdetailsstore")
+	public ModelAndView quizdetailsstore(HttpServletRequest request,HttpServletResponse response){
+		String mt=new String("POST");
+		String st=request.getMethod();
+		if(mt.equals(st)) {
+			String des, duration, mon1, day1, hour1, min1, mon2, day2, hour2, min2, stime, etime;
+			des="-";
+			duration="0";
+			des = request.getParameter("des");
+			duration = request.getParameter("duration");
+			mon1 = request.getParameter("month1");
+			day1 = request.getParameter("day1");
+			hour1 = request.getParameter("hour1");
+			min1 = request.getParameter("min1");
+			mon2 = request.getParameter("month2");
+			day2 = request.getParameter("day2");
+			hour2 = request.getParameter("hour2");
+			min2 = request.getParameter("min2");
+			QuizDetails qd = new QuizDetails();
+			LocalDateTime date1, date2;
+			ZonedDateTime currentDateTime = ZonedDateTime.now();
+			LocalDateTime currentLocalDateTime = currentDateTime.toLocalDateTime();
+			int yr = currentLocalDateTime.getYear();
+			int mon=Integer.parseInt(mon1);
+			int day=Integer.parseInt(day1);
+			int hour=Integer.parseInt(hour1);
+			int min=Integer.parseInt(min1);
+			int sec=0;
+			date1 = LocalDateTime.of(yr, mon, day, hour, min, sec);
+			mon=Integer.parseInt(mon2);
+			day=Integer.parseInt(day2);
+			hour=Integer.parseInt(hour2);
+			min=Integer.parseInt(min2);
+			date2 = LocalDateTime.of(yr, mon, day, hour, min, sec);
+			int returnVal = date1.compareTo(date2);
+			if(returnVal>=0){
+				ModelAndView mv=new ModelAndView();
+				mv.setViewName("quizdetails");
+				return mv;
+			}
+			stime = mon1 + "," + day1 + "," + hour1 + "," + min1;
+			etime = mon2 + "," + day2 + "," + hour2 + "," + min2;
+			List<QuizDetails> lst = (ArrayList<QuizDetails>) qdrepo.findAll();
+			String n = String.valueOf(lst.size());
+			StringBuilder qc = new StringBuilder();
+			for (int i = 0; i < 8 - (n.length()); i++) {
+				qc.append("0");
+			}
+			qc.append(n);
+			String quizcode = qc.toString();
+			qd.setDuration(duration);
+			qd.setDescription(des);
+			qd.setQuizcode(quizcode);
+			qd.setEtime(etime);
+			qd.setStime(stime);
+			qdrepo.save(qd);
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("questions");
+			return mv;
+		}
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("quizdetails");
+		return mv;
+
+
 	}
 
 }
