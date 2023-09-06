@@ -198,12 +198,16 @@ margin-top:-5px;
   height: 50px;
   border-radius: 5%;
 }
+p{
+align-self: center;
+}
   </style>
 
 <body >
   <div id="sign">
 	<div class='fieldset'>
-    <legend style="margin-top: 30vh;">LOGIN</legend>
+    <legend style="margin-top: 30vh;">REGISTER</legend>
+    <p th:if="${mess == true}">username or email already exits</p>
 		<form  method="post" data-textBox="parsley" action="quest">	
 					<div class='row'>
 				<label >Enter Name</label>
@@ -215,11 +219,15 @@ margin-top:-5px;
 				<input name="email" type="text" placeholder="E-mail"   data-required="true" data-type="email" data-error-message="Your E-mail is required" required>
 			</div>
             <div class='row'>
-				<label>Branch</label>
-				<input name="pass" type="text" placeholder="password"  id='firstname' data-required="true" data-error-message="Your branch is required" required>
+				<label>Password</label>
+				<input name="pass" type="password" placeholder="password"  id='firstname' data-required="true" data-error-message="Your branch is required" required>
+			</div>
+			    <div class='row'>
+				<label>conform Password</label>
+				<input name="confpass" type="password" placeholder="password"  id='firstname' data-required="true" data-error-message="Your branch is required" required>
 			</div>
 
-			<input type="submit" value="Start">
+			<input type="submit" value="submit">
 		</form>
 	</div>
 </div>

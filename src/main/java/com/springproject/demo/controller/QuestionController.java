@@ -40,7 +40,7 @@ public class QuestionController {
 		mv.addObject("q",q);
 		mv.setViewName("quest");*/
 		
-		return "studentlogin";
+		return "studentregister";
 	}
 	@RequestMapping("/questions")
 	public String questions()
@@ -67,7 +67,8 @@ public class QuestionController {
 	@RequestMapping("/quest")
 	public ModelAndView questions(HttpServletRequest req)
 	{
-		//studentlogin starts
+		ModelAndView mv = new ModelAndView();
+		//studentregister starts
 		 String name;
 		 String email;
 		 String pass;
@@ -75,13 +76,26 @@ public class QuestionController {
 		name=req.getParameter("name");
 		email=req.getParameter("email");
 		pass=req.getParameter("pass");
-		os.setSname(name);
-		os.setEmail(email);
-		os.setPassword(pass);
-		slrepo.save(os);
-		//studentlogin ends
+		StudentLogin mail =  slrepo.findByEmail(email);
+		StudentLogin nam =  slrepo.findBySname(name);
+		boolean f= false;
+		if(nam!=null || mail!=null) {
+			mv.setViewName("studentregister");
+			f=true;
+			mv.addObject("mess",f);
+			return mv;
+		}
+		else {
+			os.setSname(name);
+			os.setEmail(email);
+			os.setPassword(pass);
+			slrepo.save(os);
+			mv.setViewName("studentregister");
+		}		
+
+		//studentregister ends
 		//hemanth heroooo
-		ModelAndView mv = new ModelAndView();
+		
 //		List<Question> q =  (ArrayList<Question>) qrepo.findAll();
 //		sizeoflist = q.size();
 //		System.out.println(sizeoflist);

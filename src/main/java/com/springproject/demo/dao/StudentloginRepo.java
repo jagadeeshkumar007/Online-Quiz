@@ -5,5 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import com.springproject.demo.model.StudentLogin;
 
 public interface StudentloginRepo extends CrudRepository<StudentLogin, Integer> {
-
+	StudentLogin findByEmail(String email);
+	StudentLogin findBySname(String sname);
 }
