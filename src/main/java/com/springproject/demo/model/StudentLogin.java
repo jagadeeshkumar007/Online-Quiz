@@ -14,9 +14,8 @@ public class StudentLogin {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String sname;
-	private String rollno;
 	private String email;
-	private String branchsec;
+	private String password;
 	public int getId() {
 		return id;
 	}
@@ -29,23 +28,17 @@ public class StudentLogin {
 	public void setSname(String sname) {
 		this.sname = sname;
 	}
-	public String getRollno() {
-		return rollno;
-	}
-	public void setRollno(String rollno) {
-		this.rollno = rollno;
-	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getBranchsec() {
-		return branchsec;
+	public String getPassword() {
+		return password;
 	}
-	public void setBranchsec(String branchsec) {
-		this.branchsec = branchsec;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }

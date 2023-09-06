@@ -27,10 +27,6 @@ public class QuestionController {
 	StudentloginRepo slrepo;
 	@Autowired
 	ResultRepo rrepo;
-	private String roll;
-	private String name;
-	private String email;
-	private String branch;
 	private int sizeoflist;
 	@RequestMapping("/")
 	public String home()
@@ -72,36 +68,38 @@ public class QuestionController {
 	public ModelAndView questions(HttpServletRequest req)
 	{
 		//studentlogin starts
+		 String name;
+		 String email;
+		 String pass;
 		StudentLogin os = new StudentLogin();
-		roll=req.getParameter("rollno");
 		name=req.getParameter("name");
 		email=req.getParameter("email");
-		branch=req.getParameter("branch");
+		pass=req.getParameter("pass");
 		os.setSname(name);
 		os.setEmail(email);
-		os.setRollno(roll);
-		os.setBranchsec(branch);
+		os.setPassword(pass);
 		slrepo.save(os);
 		//studentlogin ends
+		//hemanth heroooo
 		ModelAndView mv = new ModelAndView();
-		List<Question> q =  (ArrayList<Question>) qrepo.findAll();
-		sizeoflist = q.size();
-		System.out.println(sizeoflist);
-		//jumbling starts
-		List<Question> q1 = new ArrayList<Question>();
-		Random rand = new Random();
-        while(q1.size()!=q.size())
-        {
-           int x = rand.nextInt(q.size());
-           Question y = q.get(x);
-           if(!q1.contains(y))
-           {
-               q1.add(y);
-           }
-        }
-        //jumbling ends
-		mv.addObject("q",q1);
-		mv.setViewName("home");
+//		List<Question> q =  (ArrayList<Question>) qrepo.findAll();
+//		sizeoflist = q.size();
+//		System.out.println(sizeoflist);
+//		//jumbling starts
+//		List<Question> q1 = new ArrayList<Question>();
+//		Random rand = new Random();
+//        while(q1.size()!=q.size())
+//        {
+//           int x = rand.nextInt(q.size());
+//           Question y = q.get(x);
+//           if(!q1.contains(y))
+//           {
+//               q1.add(y);
+//           }
+//        }
+//        //jumbling ends
+//		mv.addObject("q",q1);
+//		mv.setViewName("home");
 		return mv;
 	}
 	@RequestMapping("/result")
@@ -123,11 +121,11 @@ public class QuestionController {
 			}
 		}
 		Student st = new Student();
-		st.setRollno(roll);
-		st.setResult(result);
-		st.setName(name);
-		st.setEmail(email);
-		st.setBranch(branch);
+//		st.setRollno(roll);
+//		st.setResult(result);
+//		st.setName(name);
+//		st.setEmail(email);
+//		st.setBranch(branch);
 		rrepo.save(st);
 		mv.addObject("r",result);
 		mv.setViewName("result");
