@@ -41,6 +41,37 @@ public class QuestionController {
 	@Autowired
 	QuizDetailsRepo qdrepo;
 	private int sizeoflist;
+	private int islogin=0;
+	String name;
+	@RequestMapping("/login")
+	public ModelAndView login1(HttpServletRequest request){
+		String mt=new String("POST");
+		String st=request.getMethod();
+		if(mt.equals(st)){
+			String name=request.getParameter("name");
+			String pass=request.getParameter("password");
+			StudentLogin nam =  slrepo.findBySname(name);
+			String pas1=nam.getPassword();
+			if(nam!=null) {
+				if (pass.equals(pas1)) {
+					islogin=1;
+					ModelAndView mv = new ModelAndView();
+					System.out.println("sucess login **********");
+					mv.setViewName("mianpage");
+					return mv;
+				}
+				else{
+					ModelAndView mv = new ModelAndView();
+					mv.setViewName("login");
+					return mv;
+				}
+			}
+
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login");
+		return mv;
+	}
 	@RequestMapping("/")
 	public String home()
 	{
@@ -63,6 +94,7 @@ public class QuestionController {
 	@RequestMapping("/addquestion")
 	public ModelAndView addquestion(HttpServletRequest req)
 	{
+		if(islogin==1){
 		ModelAndView mv = new ModelAndView();
 		Question q = new Question();
 		q.setQno(Integer.parseInt(req.getParameter("qno")));
@@ -74,6 +106,10 @@ public class QuestionController {
 		q.setAns(Integer.parseInt(req.getParameter("ans")));
 		qrepo.save(q);
      	mv.setViewName("questions");
+		return mv;
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login");
 		return mv;
 	}
 	
@@ -131,7 +167,7 @@ public class QuestionController {
 	}
 	@RequestMapping("/result")
 	public ModelAndView result(HttpServletRequest request,HttpServletResponse response)
-	{		
+	{	if(islogin==1){
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //Http 1.1
 		ModelAndView mv = new ModelAndView();
 		Question q;
@@ -158,9 +194,14 @@ public class QuestionController {
 		mv.setViewName("result");
 		return mv;
 	}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login");
+		return mv;
+	}
 	@RequestMapping("/leaderboard")
 	public ModelAndView leaderboard(HttpServletResponse response)
 	{
+		if(islogin==1){
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //Http 1.1
 		ModelAndView mv = new ModelAndView();
 		List<Student> re =  (ArrayList<Student>) rrepo.findAll();
@@ -185,15 +226,26 @@ public class QuestionController {
 		}
 		mv.addObject("res", re2);
 		return mv;
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login");
+		return mv;
 	}
 	@RequestMapping("/quizdetails")
 	public ModelAndView quizdetails(HttpServletRequest request){
-		ModelAndView mv=new ModelAndView();
-		mv.setViewName("quizdetails");
+		if(islogin==1) {
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("quizdetails");
+			return mv;
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login");
 		return mv;
+
 	}
 	@RequestMapping("/quizdetailsstore")
 	public ModelAndView quizdetailsstore(HttpServletRequest request,HttpServletResponse response){
+		if(islogin==1){
 		String mt=new String("POST");
 		String st=request.getMethod();
 		if(mt.equals(st)) {
@@ -254,6 +306,10 @@ public class QuestionController {
 		}
 		ModelAndView mv=new ModelAndView();
 		mv.setViewName("quizdetails");
+		return mv;
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login");
 		return mv;
 
 
