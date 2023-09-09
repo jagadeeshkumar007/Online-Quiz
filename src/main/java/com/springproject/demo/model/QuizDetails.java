@@ -18,6 +18,7 @@ public class QuizDetails {
     private String stime;
     //End Time
     private String etime;
+    private String uname;
 
     public int getId() {
         return id;
@@ -73,5 +74,13 @@ public class QuizDetails {
 
     public void setNoqs(String noqs) {
         this.noqs = noqs;
+    }
+
+    public String getUname() {
+        return uname;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 }

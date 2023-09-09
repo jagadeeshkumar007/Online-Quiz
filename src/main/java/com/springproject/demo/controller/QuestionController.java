@@ -42,7 +42,7 @@ public class QuestionController {
 	QuizDetailsRepo qdrepo;
 	private int sizeoflist;
 	private int islogin=0;
-	String name;
+	String name,uname;
 	@RequestMapping("/login")
 	public ModelAndView login1(HttpServletRequest request){
 		String mt=new String("POST");
@@ -55,6 +55,7 @@ public class QuestionController {
 			if(nam!=null) {
 				if (pass.equals(pas1)) {
 					islogin=1;
+					uname=name;
 					ModelAndView mv = new ModelAndView();
 					System.out.println("sucess login **********");
 					mv.setViewName("mianpage");
@@ -324,6 +325,7 @@ public class QuestionController {
 			qd.setEtime(etime);
 			qd.setStime(stime);
 			qd.setNoqs(noqs);
+			qd.setUname(uname);
 			qdrepo.save(qd);
 			ModelAndView mv = new ModelAndView();
 			int no=Integer.parseInt(noqs);
