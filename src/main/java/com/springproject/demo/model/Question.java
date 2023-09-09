@@ -1,14 +1,13 @@
 package com.springproject.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="question")
 public class Question {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	private Integer qno;
 	@Column(name="qcontent",nullable = false)
 	private String qcontent;
@@ -22,6 +21,7 @@ public class Question {
 	private String op4;
 	@Column(name="ans",nullable = false)
 	private int ans;
+	private String quizcode;
 	public Integer getQno() {
 		return qno;
 	}
@@ -64,5 +64,12 @@ public class Question {
 	public void setAns(int ans) {
 		this.ans = ans;
 	}
-	
+
+	public String getQuizcode() {
+		return quizcode;
+	}
+
+	public void setQuizcode(String quizcode) {
+		this.quizcode = quizcode;
+	}
 }

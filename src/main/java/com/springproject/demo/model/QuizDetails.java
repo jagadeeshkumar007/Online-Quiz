@@ -11,6 +11,7 @@ public class QuizDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String quizcode;
+    private String noqs;
     private String Description;
     private String duration;
     //Start time
@@ -64,5 +65,13 @@ public class QuizDetails {
 
     public void setEtime(String etime) {
         this.etime = etime;
+    }
+
+    public String getNoqs() {
+        return noqs;
+    }
+
+    public void setNoqs(String noqs) {
+        this.noqs = noqs;
     }
 }

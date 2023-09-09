@@ -4,6 +4,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.springproject.demo.model.Question;
 
-public interface QuestionRepo extends CrudRepository<Question, Integer>{
+import java.util.List;
 
+public interface QuestionRepo extends CrudRepository<Question, Integer>{
+    List<Question> findByQuizcode(String qcode);
 }

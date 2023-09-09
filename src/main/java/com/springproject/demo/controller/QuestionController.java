@@ -91,27 +91,27 @@ public class QuestionController {
 	{
 		return "questions";
 	}
-	@RequestMapping("/addquestion")
-	public ModelAndView addquestion(HttpServletRequest req)
-	{
-		if(islogin==1){
-		ModelAndView mv = new ModelAndView();
-		Question q = new Question();
-		q.setQno(Integer.parseInt(req.getParameter("qno")));
-		q.setQcontent(req.getParameter("question"));
-		q.setOp1(req.getParameter("op1"));
-		q.setOp2(req.getParameter("op2"));
-		q.setOp3(req.getParameter("op3"));
-		q.setOp4(req.getParameter("op4"));
-		q.setAns(Integer.parseInt(req.getParameter("ans")));
-		qrepo.save(q);
-     	mv.setViewName("questions");
-		return mv;
-		}
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("login");
-		return mv;
-	}
+//	@RequestMapping("/addquestion")
+//	public ModelAndView addquestion(HttpServletRequest req)
+//	{
+//		if(islogin==1){
+//		ModelAndView mv = new ModelAndView();
+//		Question q = new Question();
+//		q.setQno(Integer.parseInt(req.getParameter("qno")));
+//		q.setQcontent(req.getParameter("question"));
+//		q.setOp1(req.getParameter("op1"));
+//		q.setOp2(req.getParameter("op2"));
+//		q.setOp3(req.getParameter("op3"));
+//		q.setOp4(req.getParameter("op4"));
+//		q.setAns(Integer.parseInt(req.getParameter("ans")));
+//		qrepo.save(q);
+//     	mv.setViewName("questions");
+//		return mv;
+//		}
+//		ModelAndView mv = new ModelAndView();
+//		mv.setViewName("login");
+//		return mv;
+//	}
 	
 	@RequestMapping("/quest")
 	public ModelAndView questions(HttpServletRequest req)
@@ -163,6 +163,29 @@ public class QuestionController {
 //        //jumbling ends
 //		mv.addObject("q",q1);
 //		mv.setViewName("home");
+		return mv;
+	}
+	@RequestMapping("/storequestions")
+	public ModelAndView storequestions(HttpServletRequest request){
+		String qcode,noqs;
+		qcode=request.getParameter("qcode");
+		noqs=request.getParameter("noqs");
+		int n=Integer.parseInt(noqs);
+		for(int i=1;i<=n;i++){
+
+			Question q = new Question();
+			q.setQno(i);
+			q.setQcontent(request.getParameter("qname"+i));
+			q.setOp1(request.getParameter("op1"+i));
+			q.setOp2(request.getParameter("op2"+i));
+			q.setOp3(request.getParameter("op3"+i));
+			q.setOp4(request.getParameter("op4"+i));
+			q.setQuizcode(qcode);
+			q.setAns(Integer.parseInt(request.getParameter("ans"+i)));
+			qrepo.save(q);
+		}
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("mianpage");
 		return mv;
 	}
 	@RequestMapping("/result")
@@ -249,10 +272,11 @@ public class QuestionController {
 		String mt=new String("POST");
 		String st=request.getMethod();
 		if(mt.equals(st)) {
-			String des, duration, mon1, day1, hour1, min1, mon2, day2, hour2, min2, stime, etime;
+			String des, duration, mon1, day1, hour1, min1, mon2, day2, hour2, min2, stime, etime,noqs;
 			des="-";
 			duration="0";
 			des = request.getParameter("des");
+			noqs=request.getParameter("noqs");
 			duration = request.getParameter("duration");
 			mon1 = request.getParameter("month1");
 			day1 = request.getParameter("day1");
@@ -299,8 +323,17 @@ public class QuestionController {
 			qd.setQuizcode(quizcode);
 			qd.setEtime(etime);
 			qd.setStime(stime);
+			qd.setNoqs(noqs);
 			qdrepo.save(qd);
 			ModelAndView mv = new ModelAndView();
+			int no=Integer.parseInt(noqs);
+			int[] arr = new int[no];
+			for(int i=0;i<no;i++){
+				arr[i]=i+1;
+			}
+			mv.addObject("arr",arr);
+			mv.addObject("qcode",quizcode);
+			mv.addObject("noqs",no);
 			mv.setViewName("questions");
 			return mv;
 		}
@@ -315,4 +348,12 @@ public class QuestionController {
 
 	}
 
+	@RequestMapping("/enterquizcode")
+	public ModelAndView enterquizcode(HttpServletRequest request){
+		String qcode=request.getParameter("qcode");
+		List<Question> lst=qrepo.findByQuizcode(qcode);
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("lst",lst);
+		return mv;
+	}
 }
