@@ -347,13 +347,21 @@ public class QuestionController {
 
 
 	}
-
-	@RequestMapping("/enterquizcode")
-	public ModelAndView enterquizcode(HttpServletRequest request){
+	@RequestMapping("enterquizcode")
+	public ModelAndView enterquizcode(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("enterquizcode");
+		return mv;
+	}
+	@RequestMapping("/getquizcode")
+	public ModelAndView getquizcode(HttpServletRequest request){
 		String qcode=request.getParameter("qcode");
-		List<Question> lst=qrepo.findByQuizcode(qcode);
+		List<Question> lst=(ArrayList<Question>) qrepo.findByQuizcode(qcode);
+		System.out.println(lst);
+		System.out.println("****************************");
 		ModelAndView mv=new ModelAndView();
 		mv.addObject("lst",lst);
+		mv.setViewName("");
 		return mv;
 	}
 }
