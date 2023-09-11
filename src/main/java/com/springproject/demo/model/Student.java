@@ -2,6 +2,8 @@ package com.springproject.demo.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,22 +12,19 @@ import jakarta.persistence.Table;
 public class Student {
 
 	@Id
-	@Column(length=20)
-	private String rollno;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 	@Column(name="result",nullable=true)
 	private int result;
 	@Column(name="name",nullable=true)
 	private String name;
-	@Column(name="email",nullable=true)
-	private String email;
-	@Column(name="branch",nullable=true)
-	private String branch;
-
-	public String getRollno() {
-		return rollno;
+	@Column(name="quizcode",nullable=true)
+	private String quizcode;
+	public int getId() {
+		return id;
 	}
-	public void setRollno(String rollno) {
-		this.rollno = rollno;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public int getResult() {
 		return result;
@@ -39,17 +38,11 @@ public class Student {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getEmail() {
-		return email;
+	public String getQuizcode() {
+		return quizcode;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getBranch() {
-		return branch;
-	}
-	public void setBranch(String branch) {
-		this.branch = branch;
+	public void setQuizcode(String quizcode) {
+		this.quizcode = quizcode;
 	}
 
 	

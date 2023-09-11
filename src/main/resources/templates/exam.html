@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Exam</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+</head>
+<style>
+		p {
+			padding-left:10px;
+			font-size:20px;
+			font-weight:bold;
+		}
+		form {
+			max-width: 600px;
+			margin: 0 auto;
+			margin-left:34%;
+		}
+		.question {
+			margin-bottom: 0px;
+		}
+		.question h2 {
+			margin-top: 0;
+		}
+		.answers {
+			display: flex;
+			flex-wrap: wrap;
+			margin-bottom:10px;
+		}
+		.answer {
+			flex-basis: calc(55% - 10px);
+			margin: 5px;
+			padding: 5px;
+			background-color: #f2f2f2;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.2s ease;
+		}
+		.answer:hover {
+			background-color: #ddd;
+		}
+		.answer.selected {
+			background-color: #007bff;
+			color: white;
+		}
+		input[type="radio"]{
+		color: white;
+			border: solid;
+			border-radius: 20px;
+			cursor: pointer;
+			transition: background-color 0.2s ease;
+		}
+		input[type="submit"] {
+			display: block;
+			margin: 20px auto;
+			padding: 10px 20px;
+			background-color: #007bff;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.2s ease;
+		}
+		input[type="submit"]:hover {
+			background-color: #0062cc;
+		}
+		.ques{
+		display:flex;
+		
+		}
+		#q{
+		float:right;
+		}
+
+		label{
+		padding-left:10px;
+		font-size:20px;
+		font-weight:3px;
+		}
+		.qc{
+		display:none;
+		}
+	</style>
+<body>
+<form action="result" method="POST" th:object="${q}">
+<div class="question">
+	<input class="qc" type="text" th:name="qcode" th:value="${qcode}">
+	<div th:each="s,i:${q}">
+	<div class="ques">
+	<P id="q1" th:text="${i.index+1}"></P><p id="q" th:text="${s.qcontent}"></p></div>
+	
+	<div class="answers">
+	<div class="answer"> <input type="radio" th:name="${s.qno}" value="1"><label th:text="${s.op1}"></label></div><br>
+	<div class="answer"><input type="radio" th:name="${s.qno}" value="2"><label th:text="${s.op2}"></label></div><br>
+	<div class="answer"><input type="radio" th:name="${s.qno}" value="3"><label th:text="${s.op3}"></label></div><br>
+	<div class="answer"><input type="radio" th:name="${s.qno}" value="4"><label th:text="${s.op4}"></label></div><br>
+	</div>
+	</div>
+	</div>
+	<input type="submit" value="submit">
+</form>
+</body>
+</html>

@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <!-- Include Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<meta charset="ISO-8859-1">
+<title>Exam</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
 </head>
 <body>
+<p style="color:red;" th:text="${mess}"></p>
 <div class="container">
   <form method="POST" action="getquizcode">
     <div class="form-group">
       <label for="qcode">Enter QCode:</label>
-      <input type="text" class="form-control" id="qcode" name="qcode">
+      <input type="text" class="form-control" name="qcode">
     </div>
     <button type="submit" class="btn btn-primary" name="submit">Submit</button>
   </form>

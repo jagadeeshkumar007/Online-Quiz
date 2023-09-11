@@ -14,12 +14,16 @@
 <p th:text="${r}"></p>
 </div>
 <div class="board">
-<form action="leaderboard">
+<form method="POST" action="leaderboard">
+	<input class="qc" type="text" th:name="qcode" th:value="${qcode}" >
 <input type="submit" value="View Scoreboard">
 </form>
 </div>
 </body>
 <style>
+		.qc{
+		display:none;
+		}
 .score{
 position:absoulte;
 top:10%;
