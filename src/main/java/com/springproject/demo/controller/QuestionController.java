@@ -84,7 +84,7 @@ public class QuestionController {
 		mv.addObject("q",q);
 		mv.setViewName("quest");*/
 		
-		return "studentregister";
+		return "studentregister.html";
 	}
 	@RequestMapping("/questions")
 	public String questions()
