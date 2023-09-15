@@ -85,7 +85,13 @@
 		}
 	</style>
 <body>
-<form action="result" method="POST" th:object="${q}">
+<div id="timer">
+	<span id="minutes">0</span>:<span id="seconds">00</span>
+</div>
+
+
+<form action="result" method="POST" th:object="${q}" id="quizForm">
+	<input id="duration" type="text" th:name="duration" th:value="${duration}" style="display:none;">
 <div class="question">
 	<input class="qc" type="text" th:name="qcode" th:value="${qcode}">
 	<div th:each="s,i:${q}">
@@ -102,5 +108,36 @@
 	</div>
 	<input type="submit" value="submit">
 </form>
+<script>
+        let minutesLeft = parseInt(document.getElementById("duration").value); // 1 minute
+        let secondsLeft = 00; // 30 seconds
+
+        function updateTimer() {
+            const minutesDisplay = document.getElementById('minutes');
+            const secondsDisplay = document.getElementById('seconds');
+
+            if (secondsLeft === 0) {
+                if (minutesLeft === 0) {
+                    clearInterval(interval);
+                    minutesDisplay.textContent = '0';
+                    secondsDisplay.textContent = '00';
+                    alert("Time's up!");
+                    const quizForm = document.getElementById('quizForm');
+        			quizForm.submit();
+                    return;
+                } else {
+                    minutesLeft--;
+                    secondsLeft = 59;
+                }
+            } else {
+                secondsLeft--;
+            }
+
+            minutesDisplay.textContent = minutesLeft.toString();
+            secondsDisplay.textContent = secondsLeft < 10 ? '0' + secondsLeft : secondsLeft.toString();
+        }
+
+        const interval = setInterval(updateTimer, 1000);
+    </script>
 </body>
 </html>

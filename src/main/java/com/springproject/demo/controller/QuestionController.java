@@ -291,31 +291,67 @@ public class QuestionController {
 		return mv;
 	}
 	@RequestMapping("/getquizcode")
-	public ModelAndView getquizcode(HttpServletRequest request){
-		
-		String qcode=request.getParameter("qcode");
-		ModelAndView mv=new ModelAndView();
+	public ModelAndView getquizcode(HttpServletRequest request) {
+
+		String qcode = request.getParameter("qcode");
+		ModelAndView mv = new ModelAndView();
 		List<Student> students = rrepo.findByName(uname);
-		for(Student i: students) {
-			if(i.getQuizcode().equals(qcode)) {
+		for (Student i : students) {
+			if (i.getQuizcode().equals(qcode)) {
+				System.out.println(" ----------#############");
 				mv.addObject("mess", "you have already attempted the exam");
 				mv.setViewName("enterquizcode");
 				return mv;
 			}
 		}
-		List<Question> lst=(ArrayList<Question>) qrepo.findByQuizcode(qcode);
-		Set<Question> set = new HashSet<Question>(lst);
-		//System.out.println(lst);
-		System.out.println("****************************");
-		
-		mv.addObject("qcode",qcode);
-		mv.addObject("q",set);
-		mv.setViewName("exam");
-		return mv;
+			System.out.println(" ----------#############");
+			ZonedDateTime currentDateTime = ZonedDateTime.now();
+			LocalDateTime currentLocalDateTime = currentDateTime.toLocalDateTime();
+//			System.out.println("Using the current date and time as input");
+
+			// Use the current year, month, day, hour, minute, and second for date2
+			LocalDateTime date1, date2, date;
+			int yr = currentLocalDateTime.getYear();
+			int month = currentLocalDateTime.getMonthValue();
+			int day = currentLocalDateTime.getDayOfMonth();
+			int hour = currentLocalDateTime.getHour();
+			int min = currentLocalDateTime.getMinute();
+			int sec = currentLocalDateTime.getSecond();
+			date = LocalDateTime.of(yr, month, day, hour, min, sec);
+			QuizDetails ls = qdrepo.findByQuizcode(qcode);
+			String[] s1 = ls.getStime().split(",");
+			String[] s2 = ls.getEtime().split(",");
+			date1 = LocalDateTime.of(yr, Integer.parseInt(s1[0]), Integer.parseInt(s1[1]), Integer.parseInt(s1[2]), Integer.parseInt(s1[3]), 0);
+			date2 = LocalDateTime.of(yr, Integer.parseInt(s2[0]), Integer.parseInt(s2[1]), Integer.parseInt(s2[2]), Integer.parseInt(s2[3]), 0);
+			int r1 = date.compareTo(date1);
+			int r2 = date.compareTo(date2);
+			System.out.println(r1 + " r1 r2  " + r2);
+			if ((r1>=0)&&(r2<=0)) {
+
+
+
+				List<Question> lst = (ArrayList<Question>) qrepo.findByQuizcode(qcode);
+				Set<Question> set = new HashSet<Question>(lst);
+				//System.out.println(lst);
+				System.out.println("****************************");
+
+				mv.addObject("qcode", qcode);
+				mv.addObject("q", set);
+				mv.addObject("duration",ls.getDuration());
+				mv.setViewName("exam");
+				return mv;
+			}
+			else{
+				mv.addObject("mess", "time out or quiz not yet started.");
+				mv.setViewName("enterquizcode");
+				return mv;
+			}
+
 	}
 	@RequestMapping("/result")
 	public ModelAndView result(HttpServletRequest request,HttpServletResponse response)
 	{	if(islogin==1){
+		System.out.println("form submitted succesfully****************");
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //Http 1.1
 		ModelAndView mv = new ModelAndView();
 		String qcode=request.getParameter("qcode");

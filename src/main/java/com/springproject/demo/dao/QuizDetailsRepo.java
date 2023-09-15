@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.*;
 
 public interface QuizDetailsRepo extends CrudRepository<QuizDetails, Integer> {
-    List<QuizDetails> findByQuizcode(String quizcode);
+    QuizDetails findByQuizcode(String quizcode);
 }
