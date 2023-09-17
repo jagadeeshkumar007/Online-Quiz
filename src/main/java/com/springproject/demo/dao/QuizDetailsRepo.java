@@ -7,4 +7,6 @@ import java.util.*;
 
 public interface QuizDetailsRepo extends CrudRepository<QuizDetails, Integer> {
     QuizDetails findByQuizcode(String quizcode);
+    List<QuizDetails> findByUname(String uname);
+
 }

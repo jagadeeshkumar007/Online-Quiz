@@ -2,18 +2,237 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-  <style>
-    div{
-    background-color:#35A29F;
-    width:80%;
-    heigth:100px;
-    }
-  </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Portal</title>
+    <!-- Add Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Add Font Awesome CSS for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Add your custom CSS here -->
+    <style>
+        /* Add your custom styles here */
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-dark .navbar-toggler-icon {
+            background-color: #ffffff;
+        }
+        .navbar-dark .navbar-toggler {
+            border-color: #ffffff;
+        }
+        .nav-link {
+            color: #ffffff;
+            position: relative; /* Add relative positioning */
+        }
+        .nav-link:hover {
+            color: #17a2b8;
+        }
+        /* Add an underline-like effect on hover */
+        .nav-link:hover::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            background-color: #17a2b8;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link.active::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #17a2b8;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .jumbotron {
+            background-color: #ffffff;
+            text-align: center; /* Center text horizontally */
+        }
+        .content-section {
+            display: none;
+        }
+        .active-section {
+            display: block;
+        }
+        .quiz-details-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 75%; /* Set the width to 75% */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section-heading {
+            width: 80%; /* Set the width of section headings to 80% */
+            margin: 20px auto; /* Add spacing below and above the headings */
+        }
+        .navbar-nav .nav-item {
+            margin-right: 20px; /* Adjust the value as needed */
+        }
+    </style>
 </head>
 <body>
-<div><a th:href="@{/quizdetails}">Create Quiz.</a></form></div>
-<br>
-<div><a th:href="@{/enterquizcode}">attempt Quiz</a></div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Quiz Portal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-target="home"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-target="attempted-quizzes"><i class="fas fa-clipboard-list"></i> Created Quizzes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-target="created-quizzes"><i class="fas fa-pencil-alt"></i> Attempted Quizzes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-bell"></i>Notifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-user"></i>MyProfile</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container" id="default-content">
+    <div class="jumbotron">
+        <h1>Welcome to the Quiz Portal</h1>
+        <p>Choose an option below:</p>
+        <div class="row">
+            <div class="col-md-6">
+                <a th:href="@{/quizdetails}" class="btn btn-primary btn-lg btn-block" data-target="create-quiz">Create Quiz</a>
+            </div>
+            <div class="col-md-6">
+                <a th:href="@{/enterquizcode}" class="btn btn-success btn-lg btn-block" data-target="attempt-quiz">Attempt Quiz</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content Sections -->
+<!-- <div id="home" class="content-section active-section">
+
+    <h2>Welcome to the Home Page</h2>
+    <p>This is the default home page content.</p>
+</div> -->
+<div th:each="s,i:${qd}">
+<div id="attempted-quizzes" class="content-section" >
+    <!-- Content for Attempted Quizzes -->
+    <h2 class="section-heading">Attempted Quizzes</h2>
+    <!-- Quiz Details Boxes -->
+    <div class="quiz-details-box">
+        <h3 th:text="${s.Description}"></h3>
+        <p>Quiz Code: <span th:text="${s.quizcode}"></span></p>
+        <p>Quiz Duration: <span th:text="${s.duration}"></span>minutes</p>
+        <!-- Add more content here -->
+    </div>
+
+</div>
+</div>
+
+<div id="created-quizzes" class="content-section" th:each="s,i:${res}">
+    <!-- Content for Created Quizzes -->
+    <h2 class="section-heading">Created Quizzes</h2>
+    <!-- Quiz Details Boxes -->
+    <div class="quiz-details-box">
+        <h3>Quiz Name A</h3>
+        <p>Quiz Code:<span th:text="${s.quizcode}"></span></p>
+        <p>Results: <span th:text="${s.result}"></span></p>
+        <!-- Add more content here -->
+    </div>
+<!--    <div class="quiz-details-box">-->
+<!--        <h3>Quiz Name B</h3>-->
+<!--        <p>Quiz Code: LMN789</p>-->
+<!--        <p>Quiz Duration: 30 minutes</p>-->
+<!--        <p>Start Time: 2023-09-18 10:00 AM</p>-->
+<!--        <p>End Time: 2023-09-18 10:30 AM</p>-->
+<!--        <p>Results: 75%</p>-->
+<!--        &lt;!&ndash; Add more content here &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="quiz-details-box">-->
+<!--        <h3>Quiz Name C</h3>-->
+<!--        <p>Quiz Code: PQR123</p>-->
+<!--        <p>Quiz Duration: 45 minutes</p>-->
+<!--        <p>Start Time: 2023-09-19 11:00 AM</p>-->
+<!--        <p>End Time: 2023-09-19 11:45 AM</p>-->
+<!--        <p>Results: 90%</p>-->
+<!--        &lt;!&ndash; Add more content here &ndash;&gt;-->
+<!--    </div>-->
+    <!-- Quiz Details Boxes -->
+</div>
+
+<div id="create-quiz" class="content-section">
+    <!-- Content for Create Quiz -->
+    <h2>Create Quiz</h2>
+    <p>This is where you can create a new quiz.</p>
+    <!-- Add more content here -->
+</div>
+
+<div id="attempt-quiz" class="content-section">
+    <!-- Content for Attempt Quiz -->
+    <h2>Attempt Quiz</h2>
+    <p>This is where you can attempt a quiz.</p>
+    <!-- Add more content here -->
+</div>
+
+<!-- Add Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Add JavaScript to toggle content sections -->
+<script>
+        document.querySelectorAll('.nav-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                var targetId = this.getAttribute('data-target');
+                var contentSections = document.querySelectorAll('.content-section');
+
+                // Remove active class from all nav-links
+                document.querySelectorAll('.nav-link').forEach(function(navLink) {
+                    navLink.classList.remove('active');
+                });
+
+                // Hide all content sections
+                contentSections.forEach(function(section) {
+                    section.style.display = 'none';
+                });
+
+                if (targetId === 'attempted-quizzes' || targetId === 'created-quizzes') {
+                    // Hide the default content when 'Attempted Quizzes' or 'Created Quizzes' is clicked
+                    document.getElementById('default-content').style.display = 'none';
+                } else {
+                    // Show the default content for other sections
+                    document.getElementById('default-content').style.display = 'block';
+                }
+
+                // Add active class to the clicked nav-link
+                this.classList.add('active');
+
+                // Show the selected content section
+                document.getElementById(targetId).style.display = 'block';
+            });
+        });
+    </script>
 </body>
 </html>

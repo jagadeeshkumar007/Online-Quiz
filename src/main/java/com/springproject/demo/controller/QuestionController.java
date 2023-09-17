@@ -57,6 +57,13 @@ public class QuestionController {
 					uname=name;
 					ModelAndView mv = new ModelAndView();
 					System.out.println("sucess login **********");
+					List<QuizDetails> quizdetails=qdrepo.findByUname(uname);
+					List<Student> resdetails=rrepo.findByName(uname);
+					mv.addObject("qd",quizdetails);
+					mv.addObject("res",resdetails);
+					for(QuizDetails i: quizdetails){
+						System.out.println(i.getQuizcode());
+					}
 					mv.setViewName("mianpage");
 					return mv;
 				}
@@ -185,6 +192,14 @@ public class QuestionController {
 			qrepo.save(q);
 		}
 		ModelAndView mv=new ModelAndView();
+
+		List<QuizDetails> quizdetails=qdrepo.findByUname(uname);
+		List<Student> resdetails=rrepo.findByName(uname);
+		mv.addObject("qd",quizdetails);
+		mv.addObject("res",resdetails);
+		for(QuizDetails i: quizdetails){
+			System.out.println(i.getQuizcode());
+		}
 		mv.setViewName("mianpage");
 		return mv;
 	}
