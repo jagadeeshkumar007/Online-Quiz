@@ -136,12 +136,12 @@
     <h2>Welcome to the Home Page</h2>
     <p>This is the default home page content.</p>
 </div> -->
-<div th:each="s,i:${qd}">
+<div >
 <div id="attempted-quizzes" class="content-section" >
     <!-- Content for Attempted Quizzes -->
     <h2 class="section-heading">Attempted Quizzes</h2>
     <!-- Quiz Details Boxes -->
-    <div class="quiz-details-box">
+    <div class="quiz-details-box" th:each="s,i:${qd}">
         <h3 th:text="${s.Description}"></h3>
         <p>Quiz Code: <span th:text="${s.quizcode}"></span></p>
         <p>Quiz Duration: <span th:text="${s.duration}"></span>minutes</p>
@@ -151,12 +151,11 @@
 </div>
 </div>
 
-<div id="created-quizzes" class="content-section" th:each="s,i:${res}">
+<div id="created-quizzes" class="content-section">
     <!-- Content for Created Quizzes -->
     <h2 class="section-heading">Created Quizzes</h2>
     <!-- Quiz Details Boxes -->
-    <div class="quiz-details-box">
-        <h3>Quiz Name A</h3>
+    <div class="quiz-details-box" th:each="s,i:${res}">
         <p>Quiz Code:<span th:text="${s.quizcode}"></span></p>
         <p>Results: <span th:text="${s.result}"></span></p>
         <!-- Add more content here -->
