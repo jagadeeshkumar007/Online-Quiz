@@ -223,11 +223,12 @@ public class QuestionController {
 		String mt=new String("POST");
 		String st=request.getMethod();
 		if(mt.equals(st)) {
-			String des, duration, mon1, day1, hour1, min1, mon2, day2, hour2, min2, stime, etime,noqs;
+			String des, duration, mon1, day1, hour1, min1, mon2, day2, hour2, min2, stime, etime,noqs,noqspp;
 			des="-";
 			duration="0";
 			des = request.getParameter("des");
 			noqs=request.getParameter("noqs");
+			noqspp=request.getParameter("noqspp");
 			duration = request.getParameter("duration");
 			mon1 = request.getParameter("month1");
 			day1 = request.getParameter("day1");
@@ -276,6 +277,7 @@ public class QuestionController {
 			qd.setStime(stime);
 			qd.setNoqs(noqs);
 			qd.setUname(uname);
+			qd.setNoqspp(noqspp);
 			qdrepo.save(qd);
 			ModelAndView mv = new ModelAndView();
 			int no=Integer.parseInt(noqs);
@@ -346,12 +348,20 @@ public class QuestionController {
 
 
 				List<Question> lst = (ArrayList<Question>) qrepo.findByQuizcode(qcode);
-				Set<Question> set = new HashSet<Question>(lst);
+				int num=Integer.parseInt(ls.getNoqspp());
+				Collections.shuffle(lst);
+				List<Question> rlst = lst.subList(0, num);
+				Set<Question> set = new HashSet<Question>(rlst);
+				String qsno=new String();
+				for(Question i:rlst){
+					qsno+=i.getQno()+",";
+				}
 				//System.out.println(lst);
 				System.out.println("****************************");
 
 				mv.addObject("qcode", qcode);
 				mv.addObject("q", set);
+				mv.addObject("qsno",qsno);
 				mv.addObject("duration",ls.getDuration());
 				mv.setViewName("exam");
 				return mv;
@@ -370,6 +380,7 @@ public class QuestionController {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); //Http 1.1
 		ModelAndView mv = new ModelAndView();
 		String qcode=request.getParameter("qcode");
+		String qsno=request.getParameter("qsno");
 		List<Question> ans = qrepo.findByQuizcode(qcode);
 		int result=0;
 		for(int i=1;i<=ans.size();i++)
@@ -387,6 +398,7 @@ public class QuestionController {
 		st.setResult(result);
 		st.setQuizcode(qcode);
 		st.setName(uname);
+		st.setQsno(qsno);
 		rrepo.save(st);
 		mv.addObject("r",result);
 		mv.addObject("qcode",qcode);
@@ -396,6 +408,55 @@ public class QuestionController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("login");
 		return mv;
+	}
+	@RequestMapping("viewanswers")
+	public ModelAndView viewanswers(HttpServletResponse response,HttpServletRequest request) {
+		if(islogin==1){
+			String qcode=request.getParameter("qcode");
+			Student s=rrepo.findByQuizcodeAndName(qcode,uname);
+			List<Question> lst = (ArrayList<Question>) qrepo.findByQuizcode(qcode);
+
+			String qsno1=s.getQsno();
+			String qsno2=qsno1.substring(0,qsno1.length()-1);
+			String qsno[]=qsno2.split(",");
+			List<List<String>> ans = new ArrayList<>();
+			int c=1;
+			for(Question i:lst){
+				for(String j:qsno){
+					if(i.getQno()==Integer.parseInt(j)){
+						List<String> a=new ArrayList<>();
+						a.add(c+". "+i.getQcontent());
+						int ano=i.getAns();
+						if(ano==1){
+							a.add(i.getOp1());
+						}
+						else if(ano==2){
+							a.add(i.getOp2());
+						}
+						else if(ano==3){
+							a.add(i.getOp3());
+						}
+						else{
+							a.add(i.getOp4());
+						}
+						c++;
+						ans.add(a);
+
+					}
+				}
+			}
+
+			ModelAndView mv = new ModelAndView();
+			mv.addObject("ans",ans);
+			mv.setViewName("showanswer");
+			return mv;
+
+		}
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("login");
+		return mv;
+
 	}
 	@RequestMapping("/leaderboard")
 	public ModelAndView leaderboard(HttpServletResponse response,HttpServletRequest request)

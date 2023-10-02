@@ -1,40 +1,92 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Questions</title>
-<!--<link rel="stylesheet"-->
-<!--	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
-<!--	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"-->
-<!--	crossorigin="anonymous">-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-image: url('C:\Users\Dell\OneDrive\Desktop\quiz.webp');
+            font-family: Arial, sans-serif;
+        }
+
+        .center {
+            text-align: center;
+            margin: 50px auto;
+            max-width: 500px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            /* Add a background image */
+            background-image: url('your-background-image.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        label {
+            font-size: 18px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div class="center">
-        <h1>Enter Questions</h1>
-        <form action="storequestions" method="post">
-            <input type="text" th:name="qcode" placeholder="option" th:value="${qcode}">
-            <input type="text" th:name="noqs" placeholder="option" th:value="${noqs}">
-            <div th:each="i:${arr}">
-                <label for="" style="font-size: x-large;">Question no</label>
-                <p th:text="${i}">QNO:</p>
+<div class="center">
+    <h1>Enter Questions</h1>
+    <form action="storequestions" method="post">
+        <input type="text" th:name="qcode" placeholder="Option" th:value="${qcode}">
+        <input type="text" th:name="noqs" placeholder="Option" th:value="${noqs}">
+        <div th:each="i:${arr}">
+            <label for="questionNo">Question no</label>
+            <p th:text="${i}" id="questionNo">QNO:</p>
 
-                <label for="">Question</label>
-                <textarea th:name="${'qname'+i}" id="Question" cols="30" rows="2" style="font-size: xx-large;"></textarea>
-                <label for="">option 1:</label>
-                <input type="text" th:name="${'op1'+i}" placeholder="option" hiddenvalue="option-1" required>
-                <label for="">option 2:</label>
-                <input type="text" th:name="${'op2'+i}" placeholder="option" hiddenvalue="option-2" required>
-                <label for="">option 3:</label>
-                <input type="text" th:name="${'op3'+i}" placeholder="option" hiddenvalue="option-3" required>
-                <label for="">option 4:</label>
-                <input type="text" th:name="${'op4'+i}" placeholder="option" hiddenvalue="option-4" required>
-                <label for="">Answer:</label>
-                <input type="text" th:name="${'ans'+i}" placeholder="Answer" hiddenvalue="Answer" required>
-            </div>
-            <input type="submit" value="submit">
-        </form>
-
-    </div>
+            <label for="questionText">Question</label>
+            <textarea th:name="${'qname'+i}" id="questionText" cols="30" rows="2" style="font-size: xx-large;"></textarea>
+            <label for="option1">Option 1:</label>
+            <input type="text" th:name="${'op1'+i}" id="option1" placeholder="Option" hiddenvalue="option-1" required>
+            <label for="option2">Option 2:</label>
+            <input type="text" th:name="${'op2'+i}" id="option2" placeholder="Option" hiddenvalue="option-2" required>
+            <label for="option3">Option 3:</label>
+            <input type="text" th:name="${'op3'+i}" id="option3" placeholder="Option" hiddenvalue="option-3" required>
+            <label for="option4">Option 4:</label>
+            <input type="text" th:name="${'op4'+i}" id="option4" placeholder="Option" hiddenvalue="option-4" required>
+            <label for="answer">Answer:</label>
+            <input type="text" th:name="${'ans'+i}" id="answer" placeholder="Answer" hiddenvalue="Answer" required>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</div>
 </body>
 </html>
-

@@ -158,6 +158,10 @@
     <div class="quiz-details-box" th:each="s,i:${res}">
         <p>Quiz Code:<span th:text="${s.quizcode}"></span></p>
         <p>Results: <span th:text="${s.result}"></span></p>
+        <form action="viewanswers" method="POST">
+            <input type="text" th:name="qcode" placeholder="Option" th:value="${s.quizcode}" style="display:none;">
+            <input type="submit" name="submit" value="ViewResults">
+        </form>
         <!-- Add more content here -->
     </div>
 <!--    <div class="quiz-details-box">-->

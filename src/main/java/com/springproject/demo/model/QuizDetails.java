@@ -12,6 +12,7 @@ public class QuizDetails {
     private int id;
     private String quizcode;
     private String noqs;
+    private String noqspp;
     private String Description;
     private String duration;
     //Start time
@@ -82,5 +83,13 @@ public class QuizDetails {
 
     public void setUname(String uname) {
         this.uname = uname;
+    }
+
+    public String getNoqspp() {
+        return noqspp;
+    }
+
+    public void setNoqspp(String noqspp) {
+        this.noqspp = noqspp;
     }
 }

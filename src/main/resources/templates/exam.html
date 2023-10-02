@@ -92,6 +92,7 @@
 
 <form action="result" method="POST" th:object="${q}" id="quizForm">
 	<input id="duration" type="text" th:name="duration" th:value="${duration}" style="display:none;">
+	<input id="qsno" type="text" th:name="qsno" th:value="${qsno}" style="display:none;">
 <div class="question">
 	<input class="qc" type="text" th:name="qcode" th:value="${qcode}">
 	<div th:each="s,i:${q}">

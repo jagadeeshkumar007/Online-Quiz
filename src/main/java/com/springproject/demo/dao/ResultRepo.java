@@ -8,5 +8,6 @@ import com.springproject.demo.model.Student;
 
 public interface ResultRepo extends CrudRepository<Student, String>{
 	List<Student> findByQuizcode(String qcode);
+	Student findByQuizcodeAndName(String qcode,String name);
 	List<Student> findByName(String name);
 }

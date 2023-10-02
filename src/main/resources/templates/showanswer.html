@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Questions and Answers</title>
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS styles */
+        .item-container {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+
+        h5 {
+            color: blue;
+        }
+
+        h6 {
+            color: green;
+        }
+
+        /* Style for the navigation bar */
+        .navbar {
+            background-color: #ffffff; /* White background color */
+        }
+
+        .navbar-brand {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center; /* Center-align the text */
+            width: 100%; /* Ensure full width */
+            color: #333; /* Text color */
+            font-size: 24px; /* Font size */
+            font-weight: bold; /* Font weight */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Bootstrap navigation bar -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">Questions and Answers</a>
+</nav>
+
+<div class="container">
+    <div th:each="i : ${ans}" class="item-container">
+        <div>
+            <h5 th:text="${i[0]}"></h5>
+            <h6 th:text="${i[1]}"></h6>
+        </div>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

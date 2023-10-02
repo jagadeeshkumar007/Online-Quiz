@@ -20,6 +20,7 @@ public class Student {
 	private String name;
 	@Column(name="quizcode",nullable=true)
 	private String quizcode;
+	private String qsno;
 	public int getId() {
 		return id;
 	}
@@ -45,6 +46,11 @@ public class Student {
 		this.quizcode = quizcode;
 	}
 
-	
-	
+	public String getQsno() {
+		return qsno;
+	}
+
+	public void setQsno(String qsno) {
+		this.qsno = qsno;
+	}
 }
