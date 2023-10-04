@@ -15,9 +15,9 @@
             border-radius: 5px;
         }
 
-        h5 {
-            color: blue;
-        }
+<!--        h5 {-->
+<!--            color: blue;-->
+<!--        }-->
 
         h6 {
             color: green;
@@ -46,14 +46,47 @@
     <a class="navbar-brand" href="#">Questions and Answers</a>
 </nav>
 
-<div class="container">
-    <div th:each="i : ${ans}" class="item-container">
-        <div>
-            <h5 th:text="${i[0]}"></h5>
-            <h6 th:text="${i[1]}"></h6>
+
+
+<div th:each="i:${ans}" style="padding:5%">
+    <div class="ques">
+        <P id="q1" th:text="${i[0]}" style="float:left;"></P><p style="float:left;">. </p><h5 id="q" th:text="${i[1]}" ></h5></div>
+
+    <div class="answers">
+        <div th:if="${i[2]==i[6]}">
+        <div class="answer " style="background-color:#78D6C6"> <input type="radio"  checked><label th:text="${i[2]}"></label></div><br>
         </div>
+        <div th:if="${i[2]!=i[6]}">
+            <div class="answer "> <input type="radio" ><label th:text="${i[2]}"></label></div><br>
+        </div>
+
+        <div th:if="${i[3]==i[6]}">
+            <div class="answer " style="background-color:#78D6C6"> <input type="radio"  checked><label th:text="${i[3]}"></label></div><br>
+        </div>
+        <div th:if="${i[3]!=i[6]}">
+            <div class="answer "> <input type="radio"  ><label th:text="${i[3]}"></label></div><br>
+        </div>
+
+        <div th:if="${i[4]==i[6]}">
+            <div class="answer " style="background-color:#78D6C6"> <input type="radio"   checked><label th:text="${i[4]}"></label></div><br>
+        </div>
+        <div th:if="${i[4]!=i[6]}">
+            <div class="answer "> <input type="radio" ><label th:text="${i[4]}"></label></div><br>
+        </div>
+
+        <div th:if="${i[5]==i[6]}">
+            <div class="answer " style="background-color:#78D6C6"> <input type="radio"  checked><label th:text="${i[5]}"></label></div><br>
+        </div>
+        <div th:if="${i[5]!=i[6]}">
+            <div class="answer "> <input type="radio"  ><label th:text="${i[5]}"></label></div><br>
+        </div>
+
     </div>
 </div>
+
+
+
+
 
 <!-- Add Bootstrap JS and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

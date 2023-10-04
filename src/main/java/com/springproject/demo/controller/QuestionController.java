@@ -424,8 +424,15 @@ public class QuestionController {
 			for(Question i:lst){
 				for(String j:qsno){
 					if(i.getQno()==Integer.parseInt(j)){
+
 						List<String> a=new ArrayList<>();
-						a.add(c+". "+i.getQcontent());
+						a.add(c+" ");
+						c++;
+						a.add(i.getQcontent());
+						a.add(i.getOp1());
+						a.add(i.getOp2());
+						a.add(i.getOp3());
+						a.add(i.getOp4());
 						int ano=i.getAns();
 						if(ano==1){
 							a.add(i.getOp1());
@@ -439,13 +446,37 @@ public class QuestionController {
 						else{
 							a.add(i.getOp4());
 						}
-						c++;
+
 						ans.add(a);
+
+
+//						a.add(c+". "+i.getQcontent());
+//						int ano=i.getAns();
+//						if(ano==1){
+//							a.add(i.getOp1());
+//						}
+//						else if(ano==2){
+//							a.add(i.getOp2());
+//						}
+//						else if(ano==3){
+//							a.add(i.getOp3());
+//						}
+//						else{
+//							a.add(i.getOp4());
+//						}
+//						c++;
+//						ans.add(a);
 
 					}
 				}
 			}
-
+//			System.out.println(c+"*************************************************");
+//			for(List<String> i1:ans){
+//				for(String i2: i1){
+//					System.out.print(i2+" ");
+//				}
+//				System.out.println();
+//			}
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("ans",ans);
 			mv.setViewName("showanswer");
